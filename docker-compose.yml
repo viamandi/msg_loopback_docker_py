@@ -1,10 +1,8 @@
-version: '3.8'
-
 services:
   # HiveMQ MQTT Broker Service
   hivemq:
     # Use the official HiveMQ Community Edition image
-    image: hivemq/hivemq-ce:latest
+    image: hivemq/hivemq4
     container_name: hivemq-broker
     ports:
       # Standard port for MQTT clients
@@ -12,6 +10,4 @@ services:
       # Port for the HiveMQ Control Center (web interface)
       - "8080:8080"
     volumes:
-      - ./hivemq/data:/opt/hivemq/data
       - ./hivemq/log:/opt/hivemq/log
-      - ./hivemq/conf:/opt/hivemq/conf
