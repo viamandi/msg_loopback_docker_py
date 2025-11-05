@@ -11,3 +11,12 @@ services:
       - "8080:8080"
     volumes:
       - ./hivemq/log:/opt/hivemq/log
+
+  python-app:
+    build: .
+    container_name: python-loopback-app
+    depends_on:
+      - hivemq
+    environment:
+      - MQTT_BROKER_HOST=hivemq
+    restart: on-failure
