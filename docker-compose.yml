@@ -2,15 +2,16 @@ services:
   # HiveMQ MQTT Broker Service
   hivemq:
     # Use the official HiveMQ Community Edition image
-    image: hivemq/hivemq4
-    container_name: hivemq-broker
+    image: hivemq/hivemq-ce:latest
+    container_name: hivemq
     ports:
       # Standard port for MQTT clients
       - "1883:1883"
       # Port for the HiveMQ Control Center (web interface)
-      - "8080:8080"
+      - "8081:8080"
     volumes:
       - ./hivemq/log:/opt/hivemq/log
+  # Python Application Service
 
   python-app:
     build: .
@@ -19,4 +20,3 @@ services:
       - hivemq
     environment:
       - MQTT_BROKER_HOST=hivemq
-    restart: on-failure
