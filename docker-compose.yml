@@ -8,15 +8,27 @@ services:
       # Standard port for MQTT clients
       - "1883:1883"
       # Port for the HiveMQ Control Center (web interface)
-      - "8081:8080"
+      - "8080:8080"
     volumes:
       - ./hivemq/log:/opt/hivemq/log
+    healthcheck:
+      # This command attempts to open a TCP connection to the MQTT port.
+      # It will only succeed when the broker is ready to accept connections.
+      test: ["CMD", "bash", "-c", "exec 3<>/dev/tcp/localhost/1883 || exit 1"]
+      interval: 5s
+      timeout: 10s
+      retries: 10
+      start_period: 20s
   # Python Application Service
 
   python-app:
     build: .
     container_name: python-loopback-app
     depends_on:
-      - hivemq
+      hivemq:
+        condition: service_healthy
     environment:
-      - MQTT_BROKER_HOST=hivemq
+      # Set the broker host name for the Python script to use.
+      MQTT_BROKER_HOST: hivemq
+    ports:
+      - "8090:8090"

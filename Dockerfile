@@ -12,7 +12,7 @@ WORKDIR /app
 RUN git clone https://github.com/viamandi/msg_loopback_py.git .
 
 # Instalăm dependențele
-RUN pip install --no-cache-dir paho-mqtt
+RUN pip install --no-cache-dir paho-mqtt==2.1.0
 
 # Comanda care va fi rulată la pornirea containerului
 CMD ["python", "main.py"]
