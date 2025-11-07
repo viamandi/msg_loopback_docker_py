@@ -22,7 +22,11 @@ services:
   # Python Application Service
 
   python-app:
-    build: .
+    build:
+      context: .
+      args:
+        # Pasăm un argument care se schimbă pentru a forța re-clonarea
+        CACHE_BUSTER: ${CACHE_BUSTER}
     container_name: python-loopback-app
     depends_on:
       hivemq:

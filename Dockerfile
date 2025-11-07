@@ -6,6 +6,9 @@ WORKDIR /app
 
 RUN apt-get update && apt-get install -y git && rm -rf /var/lib/apt/lists/*
 
+# Adăugăm un argument pentru a invalida cache-ul la nevoie
+ARG CACHE_BUSTER
+
 # Copiem fișierul de cod sursă local în container
 RUN git clone https://github.com/viamandi/msg_loopback_py.git .
 
