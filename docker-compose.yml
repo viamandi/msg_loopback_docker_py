@@ -30,5 +30,7 @@ services:
     environment:
       # Set the broker host name for the Python script to use.
       MQTT_BROKER_HOST: hivemq
+      PYTHONUNBUFFERED: "1"
+
     ports:
       - "8090:8090"
